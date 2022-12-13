@@ -1,9 +1,8 @@
 def lintcheck() {
     sh ''' 
         # We want Developers to handle the lint checks failure
-        # npm i jslint
-        # node_modules/jslint/bin/jslint.js  server.js || true
         echo Starting lint checks for ${Component}
+        # mvn checkstyle:check || true                     //perform maven lint checks
         echo Lint checks completed for ${Component}
     '''
 }
