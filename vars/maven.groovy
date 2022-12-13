@@ -20,6 +20,37 @@ def call() {
                 
             }
         }
+         stage ('Sonar check') {
+            steps {
+                script {
+                    mvn clean compile
+                    env.ARGS=-Dsonar.projectkey=target/
+                    common.sonarcheck()
+                }  
+            }
+         }
+
+         stage ('Test cases') {
+            parallel {
+                stage ('Unit tests') {
+                    steps {
+                        sh "Unit test cases completed"
+                    }
+               }
+
+               stage ('Intergration tests') {
+                    steps {
+                        sh "Integration test cases completed"
+                    }
+                }
+
+                stage ('Functional tests') {
+                    steps {
+                        sh "Functional test cases completed"
+                    }
+                }
+            }
+         }
     }   //end of the stages
 }
 }
